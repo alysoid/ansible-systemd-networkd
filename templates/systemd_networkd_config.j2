@@ -1,0 +1,19 @@
+# {{ ansible_managed }}
+
+{% for config in item.value %}
+{% for section, options in config.items() %}
+[{{ section }}]
+{% for option in options %}
+{% for key, value in option.items() %}
+{% if value is string or value is not iterable %}
+{{ key }}={{ value }}
+{% else %}
+{% for subvalue in value %}
+{{ key }}={{ subvalue }}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+{% endfor %}
+{% endfor %}
