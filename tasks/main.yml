@@ -1,4 +1,19 @@
 ---
+- name: Check existing configuration files
+  find:
+    paths: /etc/systemd/network
+    patterns: '*.network,*.netdev,*.link'
+  when: network_cleanup
+  register: existing_config
+
+- name: Remove existing configuration files
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{ existing_config.files }}"
+  when: network_cleanup
+  notify: Restart systemd-networkd
+
 - name: Generate .network configuration files
   template:
     src: systemd_networkd_config.j2

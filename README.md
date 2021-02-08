@@ -11,7 +11,7 @@ Systemd.networkd read the files located in the system network directories `/usr/
 | `systemd_network` | `{}`    | They will apply a network configuration for a matching device.
 | `systemd_netdev`  | `{}`    | They will create a virtual network device for a matching environment.
 | `systemd_link`    | `{}`    | When a network device appears, udev will look for the first matching .link file.
-
+| `network_cleanup` | `no`    | Remove existing configuration files in '/etc/systemd/network'
 
 ### `systemd_network`
 
