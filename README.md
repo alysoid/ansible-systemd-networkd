@@ -1,32 +1,30 @@
 # [Catena](https://github.com/alysoid/catena) - Network Ansible Role
 
-Manage system network via systemd using [systemd-networkd](https://man.archlinux.org/man/systemd-networkd.8.en).
-
-Systemd.networkd read the files located in the system network directories `/usr/lib/systemd/network`, the volatile runtime network directory `/run/systemd/network` and the local administration network directory `/etc/systemd/network`. All configuration files are collectively sorted and processed in lexical order, regardless of the directories in which they live. However, files with identical filenames replace each other. Files in /etc/ have the highest priority, files in /run/ take precedence over files with the same name in /usr/lib/. This can be used to override a system-supplied configuration file with a local file if needed. As a special case, an empty file (file size 0) or symlink with the same name pointing to /dev/null disables the configuration file entirely (it is "masked").
+Manage system network via systemd using [systemd-networkd](https://man.archlinux.org/man/systemd-networkd.8.en), a system service that manages networks. It detects and configures network devices as they appear, as well as creating virtual network devices. Low-level link settings can be set independently of networks.
 
 ## Role default variables
 
 | Variable          | Default | Info
 | ----------------- | ------- | ------------------
-| `systemd_network` | `{}`    | They will apply a network configuration for a matching device.
-| `systemd_netdev`  | `{}`    | They will create a virtual network device for a matching environment.
-| `systemd_link`    | `{}`    | When a network device appears, udev will look for the first matching .link file.
-| `network_cleanup` | `no`    | Remove existing configuration files in '/etc/systemd/network'
+| `systemd_network` | `{}`    | Apply a network configuration for a matching device.
+| `systemd_netdev`  | `{}`    | Create a virtual network device for a matching environment.
+| `systemd_link`    | `{}`    | Create link settings. When a network device appears, udev will look for the first matching.
+| `network_cleanup` | `no`    | Remove existing configuration files: `/etc/systemd/network/*.network|*.netdev|*.link`
 
 ### `systemd_network`
 
 Manage [systemd.network - Network configuration](https://man.archlinux.org/man/systemd.network.5) files.
 
-Files will have the .network extension and will be placed in the local administration network directory `/etc/systemd/network`. 
+Configuration files will have the .network extension and will be placed in the local administration network directory `/etc/systemd/network`. 
 
 ### `systemd_netdev`
 
 Manage [systemd.netdev - Virtual Network Device configuration](https://man.archlinux.org/man/systemd.netdev.5) files.
 
-Files will have the .netdev extension and will be placed in the local administration network directory `/etc/systemd/network`.
+Configuration files will have the .netdev extension and will be placed in the local administration network directory `/etc/systemd/network`.
 
 ### `systemd_link`
 
 Manage [systemd.link - Network device configuration](https://man.archlinux.org/man/systemd.link.5) files.
 
-Files will have the .link extension and will be placed in the local administration network directory `/etc/systemd/network`.
+Configuration files will have the .link extension and will be placed in the local administration network directory `/etc/systemd/network`.
