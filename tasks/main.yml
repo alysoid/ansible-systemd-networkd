@@ -20,7 +20,7 @@
     dest: "/etc/systemd/network/{{ item.key }}.network"
     owner: root
     group: systemd-network
-    mode: 0640
+    mode: '0640'
   loop: "{{ systemd_network | dict2items }}"
   notify: Restart systemd-networkd
 
@@ -30,7 +30,7 @@
     dest: "/etc/systemd/network/{{ item.key }}.netdev"
     owner: root
     group: systemd-network
-    mode: 0640
+    mode: '0640'
   loop: "{{ systemd_netdev | dict2items }}"
   notify: Restart systemd-networkd
 
@@ -40,6 +40,6 @@
     dest: "/etc/systemd/network/{{ item.key }}.link"
     owner: root
     group: systemd-network
-    mode: 0640
+    mode: '0640'
   loop: "{{ systemd_link | dict2items }}"
   notify: Restart systemd-networkd
