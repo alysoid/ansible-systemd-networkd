@@ -1,13 +1,13 @@
 ---
 - name: Check existing configuration files
-  find:
+  ansible.builtin.find:
     paths: /etc/systemd/network
-    patterns: '*.network,*.netdev,*.link'
+    patterns: "*.network,*.netdev,*.link"
   when: network_cleanup
   register: existing_config
 
 - name: Remove existing configuration files
-  file:
+  ansible.builtin.file:
     path: "{{ item.path }}"
     state: absent
   loop: "{{ existing_config.files }}"
@@ -15,31 +15,31 @@
   notify: Restart systemd-networkd
 
 - name: Generate .network configuration files
-  template:
+  ansible.builtin.template:
     src: systemd_networkd_config.j2
     dest: "/etc/systemd/network/{{ item.key }}.network"
     owner: root
     group: systemd-network
-    mode: '0640'
+    mode: "0640"
   loop: "{{ systemd_network | dict2items }}"
   notify: Restart systemd-networkd
 
 - name: Generate .netdev configuration files
-  template:
+  ansible.builtin.template:
     src: systemd_networkd_config.j2
     dest: "/etc/systemd/network/{{ item.key }}.netdev"
     owner: root
     group: systemd-network
-    mode: '0640'
+    mode: "0640"
   loop: "{{ systemd_netdev | dict2items }}"
   notify: Restart systemd-networkd
 
 - name: Generate .link configuration files
-  template:
+  ansible.builtin.template:
     src: systemd_networkd_config.j2
     dest: "/etc/systemd/network/{{ item.key }}.link"
     owner: root
     group: systemd-network
-    mode: '0640'
+    mode: "0640"
   loop: "{{ systemd_link | dict2items }}"
   notify: Restart systemd-networkd
