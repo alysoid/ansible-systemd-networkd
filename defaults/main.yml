@@ -1,15 +1,15 @@
 ---
 # Network configuration files
 # https://man.archlinux.org/man/systemd.network.5
-systemd_network: {}
+systemd_network: []
 
 # Virtual Network Device configuration files
 # https://man.archlinux.org/man/systemd.netdev.5
-systemd_netdev: {}
+systemd_netdev: []
 
 # Network device configuration files
 # https://man.archlinux.org/man/systemd.link.5
-systemd_link: {}
+systemd_link: []
 
 # Remove all existing configuration files when true
 network_cleanup: false

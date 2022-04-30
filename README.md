@@ -6,9 +6,9 @@ Manage system network with systemd using [systemd-networkd](https://man.archlinu
 
 | Variable          | Default | Info                                                                                        |
 | ----------------- | ------- | ------------------------------------------------------------------------------------------- |
-| `systemd_network` | `{}`    | Apply a network configuration for a matching device.                                        |
-| `systemd_netdev`  | `{}`    | Create a virtual network device for a matching environment.                                 |
-| `systemd_link`    | `{}`    | Create link settings. When a network device appears, udev will look for the first matching. |
+| `systemd_network` | `[]`    | Apply a network configuration for a matching device.                                        |
+| `systemd_netdev`  | `[]`    | Create a virtual network device for a matching environment.                                 |
+| `systemd_link`    | `[]`    | Create link settings. When a network device appears, udev will look for the first matching. |
 | `network_cleanup` | `no`    | Remove existing configuration files: `/etc/systemd/network/{*.network}{*.netdev}{*.link}`   |
 
 ### `systemd_network`

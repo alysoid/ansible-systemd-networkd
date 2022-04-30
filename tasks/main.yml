@@ -17,29 +17,38 @@
 - name: Generate .network configuration files
   ansible.builtin.template:
     src: systemd_networkd_config.j2
-    dest: "/etc/systemd/network/{{ item.key }}.network"
+    dest: "/etc/systemd/network/{{ item.name }}.network"
     owner: root
     group: systemd-network
     mode: "0640"
-  loop: "{{ systemd_network | dict2items }}"
+  vars:
+    - current_item: "{{ item.options }}"
+    - current_type: systemd.network
+  loop: "{{ systemd_network }}"
   notify: Restart systemd-networkd
 
 - name: Generate .netdev configuration files
   ansible.builtin.template:
     src: systemd_networkd_config.j2
-    dest: "/etc/systemd/network/{{ item.key }}.netdev"
+    dest: "/etc/systemd/network/{{ item.name }}.netdev"
     owner: root
     group: systemd-network
     mode: "0640"
-  loop: "{{ systemd_netdev | dict2items }}"
+  vars:
+    - current_item: "{{ item.options }}"
+    - current_type: systemd.netdev
+  loop: "{{ systemd_netdev }}"
   notify: Restart systemd-networkd
 
 - name: Generate .link configuration files
   ansible.builtin.template:
     src: systemd_networkd_config.j2
-    dest: "/etc/systemd/network/{{ item.key }}.link"
+    dest: "/etc/systemd/network/{{ item.name }}.link"
     owner: root
     group: systemd-network
     mode: "0640"
-  loop: "{{ systemd_link | dict2items }}"
+  vars:
+    - current_item: "{{ item.options }}"
+    - current_type: systemd.link
+  loop: "{{ systemd_link }}"
   notify: Restart systemd-networkd
