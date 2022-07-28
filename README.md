@@ -4,14 +4,14 @@ Manage system network with systemd using [systemd-networkd](https://man.archlinu
 
 ## Role variables
 
-| Variable          | Default | Info                                                                                        |
-| ----------------- | ------- | ------------------------------------------------------------------------------------------- |
-| `systemd_network` | `[]`    | Apply a network configuration for a matching device.                                        |
-| `systemd_netdev`  | `[]`    | Create a virtual network device for a matching environment.                                 |
-| `systemd_link`    | `[]`    | Create link settings. When a network device appears, udev will look for the first matching. |
-| `network_cleanup` | `no`    | Remove existing configuration files: `/etc/systemd/network/{*.network}{*.netdev}{*.link}`   |
+| Variable                 | Default | Info                                                                                        |
+| ------------------------ | ------- | ------------------------------------------------------------------------------------------- |
+| `catena_network`         | `[]`    | Apply a network configuration for a matching device.                                        |
+| `catena_netdev`          | `[]`    | Create a virtual network device for a matching environment.                                 |
+| `catena_link`            | `[]`    | Create link settings. When a network device appears, udev will look for the first matching. |
+| `catena_network_cleanup` | `no`    | Remove existing configuration files: `/etc/systemd/network/{*.network}{*.netdev}{*.link}`   |
 
-### `systemd_network`
+### `catena_network`
 
 Manage [systemd.network - Network configuration](https://man.archlinux.org/man/systemd.network.5) files.
 
@@ -19,10 +19,10 @@ Configuration files will have the .network extension and will be placed in the l
 
 ```yaml
 # Defaults
-systemd_network: []
+catena_network: []
 
 # Example
-systemd_network:
+catena_network:
   # /etc/systemd/network/eth0.network
   - name: eth0
     options:
@@ -34,7 +34,7 @@ systemd_network:
         MulticastDNS: "yes"
 ```
 
-### `systemd_netdev`
+### `catena_netdev`
 
 Manage [systemd.netdev - Virtual Network Device configuration](https://man.archlinux.org/man/systemd.netdev.5) files.
 
@@ -42,10 +42,10 @@ Configuration files will have the .netdev extension and will be placed in the lo
 
 ```yaml
 # Defaults
-systemd_netdev: []
+catena_netdev: []
 
 # Example
-systemd_netdev:
+catena_netdev:
   # /etc/systemd/network/25-bridge.netdev
   - name: 25-bridge
     options:
@@ -54,7 +54,7 @@ systemd_netdev:
         Kind: bridge
 ```
 
-### `systemd_link`
+### `catena_link`
 
 Manage [systemd.link - Network device configuration](https://man.archlinux.org/man/systemd.link.5) files.
 
@@ -62,10 +62,10 @@ Configuration files will have the .link extension and will be placed in the loca
 
 ```yaml
 # Defaults
-systemd_link: []
+catena_link: []
 
 # Example
-systemd_link:
+catena_link:
   # /etc/systemd/network/10-dmz.link
   - name: 10-dmz
     options:
